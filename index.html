@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Üniversite Kulübü</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Modern Üniversite Kulübü</h1>
+    <p>Birlikte Öğren, Paylaş, Geliş!</p>
+  </header>
+  
+  <nav>
+    <a href="#anasayfa" class="active" onclick="showSection('anasayfa', this); return false;">Anasayfa</a>
+    <a href="#kulup" onclick="showSection('kulup', this); return false;">Kulüp</a>
+    <a href="#dergi" onclick="showSection('dergi', this); return false;">Dergi</a>
+  </nav>
+  
+  <main>
+    <!-- Anasayfa -->
+    <section id="anasayfa-section">
+      <h2>Hoş Geldiniz!</h2>
+      <p>
+        Modern Üniversite Kulübü'ne hoş geldiniz. Etkinliklerimiz, dergimiz ve topluluğumuz hakkında bilgi almak için menüyü kullanabilirsiniz.
+      </p>
+    </section>
+    
+    <!-- Kulüp Tanıtımı -->
+    <section id="kulup-section" style="display:none">
+      <h2>Kulübümüz</h2>
+      <p>
+        Modern Üniversite Kulübü olarak amacımız öğrencilerin akademik ve sosyal gelişimine katkıda bulunmak.<br>
+        Atölyeler, seminerler ve sosyal etkinliklerle aktif bir topluluk kuruyoruz. Tüm üniversite öğrencileri kulübümüze katılabilir!
+      </p>
+      <div class="contact-info">
+        <strong>İletişim:</strong><br>
+        Email: info@modernkulup.edu.tr<br>
+        Instagram: <a href="https://instagram.com/modernkulup" target="_blank">@modernkulup</a>
+      </div>
+    </section>
+    
+    <!-- Dergi Okuma Bölümü -->
+    <section id="dergi-section" style="display:none">
+      <h2>Kulüp Dergisi</h2>
+      <div id="dergi-viewer" style="text-align:center;">
+        <button id="prev-page" onclick="changePage(-1)">&#8592;</button>
+        <span id="dergi-page-num" style="margin: 0 1rem;">1 / 3</span>
+        <button id="next-page" onclick="changePage(1)">&#8594;</button>
+        <div id="dergi-page-content" style="margin-top:1.5rem; min-height: 100px;">
+          <!-- Dergi ilk sayfa içeriği -->
+          <h3>Başlangıç</h3>
+          <p>Modern Kulüp Dergisi'ne hoş geldiniz!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script src="script.js"></script>
+</body>
+</html>
+<!-- Dergi Kapak Tasarımı -->
+<style>
+  #dergi-cover-overlay {
+    position: fixed;
+    z-index: 1002;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, #1a2547 80%, #fbcb07 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    animation: coverFadeIn 0.7s;
+  }
+  #dergi-cover-inner {
+    background: rgba(17,26,53,0.97);
+    border-radius: 1.9rem;
+    box-shadow: 0 8px 44px 0 rgba(20,33,61,0.35);
+    text-align: center;
+    padding: 3rem 2.5rem 2.1rem 2.5rem;
+    max-width: 350px;
+    width: 92vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #dergi-cover-logo {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #dergi-cover-title {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: .7rem;
+    color: #ffe26e;
+    text-shadow: 0 3px 16px #2c3556, 0 1px 0 #fff8;
+  }
+  #dergi-cover-date {
+    font-size: 1.1rem;
+    color: #dbeafe;
+    margin-top: 1.2rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+  #open-dergi-btn {
+    /* prominent button */
+    margin-top:2.1rem;
+    background: linear-gradient(90deg, #ffb700, #ffdf7a);
+    color: #182033;
+    font-weight: 600;
+    border: none;
+    padding: 0.8rem 2.4rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 1.15rem;
+    letter-spacing: 1.3px;
+    box-shadow: 0 1px 9px #ffe26e44;
+    transition: background 0.17s, color 0.17s,transform 0.14s;
+  }
+  #open-dergi-btn:hover {
+    background: #fffbe7;
+    color: #be7e01;
+    transform: scale(1.04);
+  }
+  @media (max-width: 500px) {
+    #dergi-cover-inner {
+      padding: 1.2rem 0.4rem 1.5rem 0.4rem;
+      border-radius: 0.8rem;
+      max-width: 99vw;
+    }
+    #dergi-cover-title {
+      font-size: 1.1rem;
+    }
+    #dergi-cover-logo {
+      width: 60px;
+      height: 60px;
+      margin-bottom: .85rem;
+    }
+  }
+  @keyframes coverFadeIn {
+    from { opacity:0; }
+    to   { opacity:1; }
+  }
+</style>
+<div id="dergi-cover-overlay">
+  <div id="dergi-cover-inner">
+    <div id="dergi-cover-logo" aria-label="Kulüp Logosu">
+      <!-- Basit SVG Kulüp Logosu örnek -->
+      <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="42" cy="42" r="38" fill="#1d326b" stroke="#ffb700" stroke-width="5"/>
+        <path d="M42 21 L52 44 L32 44 Z" fill="#ffb700"/>
+        <circle cx="42" cy="34" r="5" fill="#fff"/>
+        <rect x="37" y="46" width="10" height="17" rx="4.3" fill="#ffe066"/>
+      </svg>
+    </div>
+    <div id="dergi-cover-title">Modern Kulüp Dergisi</div>
+    <div id="dergi-cover-date">
+      Haziran 2024
+    </div>
+    <button id="open-dergi-btn">Dergiyi Oku</button>
+  </div>
+</div>
+<script>
+  // Sadece dergi bölümünde gösterilsin
+  function isDergiSectionVisible() {
+    var section = document.getElementById('dergi-section');
+    return section && section.style.display !== "none";
+  }
+  // Kapak açma fonksiyonu
+  function hideDergiCover() {
+    var overlay = document.getElementById('dergi-cover-overlay');
+    if (overlay) overlay.style.display = "none";
+  }
+  // Kapak sadece dergi kısmına ilk girildiğinde gösterilsin
+  (function(){
+    var shown = false;
+    function tryShowCover() {
+      if (isDergiSectionVisible() && !shown) {
+        var overlay = document.getElementById('dergi-cover-overlay');
+        if (overlay) overlay.style.display = "";
+        shown = true;
+      } else if (!isDergiSectionVisible()) {
+        var overlay = document.getElementById('dergi-cover-overlay');
+        if (overlay) overlay.style.display = "none";
+      }
+    }
+    // Menüler arası geçiş için showSection fonksiyonu override
+    var origShowSection = window.showSection;
+    window.showSection = function(id, el) {
+      if(origShowSection) origShowSection(id, el);
+      tryShowCover();
+    };
+    document.getElementById('open-dergi-btn').onclick = hideDergiCover;
+    // Sayfa ilk yüklenince
+    document.addEventListener('DOMContentLoaded', function(){
+      if(isDergiSectionVisible()){
+        // göster
+        shown = false;
+        tryShowCover();
+      } else {
+        // Başlangıçta dergi görünmüyorsa gizle
+        var overlay = document.getElementById('dergi-cover-overlay');
+        if (overlay) overlay.style.display = "none";
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,211 @@
+/** Genel tema stilleri */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #14213d 0%, #27406e 100%);
+  color: #f7fafc;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem 1rem 1rem;
+  background: rgba(20,33,61,0.97);
+  border-bottom: 4px solid #233560;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  color: #cad8f5;
+  font-weight: 700;
+}
+
+header p {
+  margin: 0.5rem 0 0;
+  color: #92a9c6;
+  font-size: 1.1rem;
+}
+
+/** Navigation bar */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  background: rgba(20,33,61, 0.93);
+  padding: 0.7rem 0;
+  border-bottom: 2px solid #233560;
+}
+
+nav a {
+  color: #f7fafc;
+  text-decoration: none;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+  position: relative;
+}
+
+nav a.active,
+nav a:hover {
+  background: #27406e;
+  color: #ffb700;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 2px 8px 0 rgba(36,52,88,0.05);
+}
+
+main {
+  max-width: 900px;
+  margin: 2rem auto 0 auto;
+  padding: 2rem 1rem;
+  background: rgba(18,27,48,0.92);
+  border-radius: 1.4rem;
+  box-shadow: 0 4px 24px 0 rgba(20, 33, 61, 0.12);
+}
+
+/** Section başlıkları */
+section > h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.45rem;
+  color: #8da2d4;
+  font-weight: 600;
+}
+
+/** Dergi Okuma Alanı */
+#dergi-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #19294c;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px 0 rgba(20,33,61,0.18);
+  max-width: 390px;
+  margin: 2rem auto 0 auto;
+  padding: 2rem 1rem 2.5rem 1rem;
+  position: relative;
+  transition: box-shadow 0.17s;
+}
+
+#dergi-viewer:hover {
+  box-shadow: 0 8px 32px 0 rgba(36,52,88,0.22);
+}
+
+/** Dergi Kart İçerik */
+#dergi-page-content {
+  width: 100%;
+  background: rgba(36,52,88,0.09);
+  border-radius: 0.7rem;
+  padding: 1rem 0.8rem;
+  color: #e0eafd;
+  min-height: 110px;
+  margin-top: 1.2rem;
+}
+
+/** Kart başlığı */
+#dergi-page-content h3 {
+  margin-top: 0;
+  color: #ffb700;
+}
+
+/** Dergi butonları */
+#dergi-viewer button {
+  background: #22386a;
+  color: #ffb700;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0.6rem;
+  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 7px 0 rgba(36,52,88,0.06);
+  transition: background 0.18s, transform 0.18s, box-shadow 0.20s;
+  will-change: transform;
+}
+
+#dergi-viewer button:hover {
+  background: #ffb700;
+  color: #19294c;
+  transform: scale(1.13) rotate(-7deg);
+  box-shadow: 0 6px 18px 0 rgba(36, 52, 88, 0.17);
+}
+
+#dergi-viewer #dergi-page-num {
+  font-weight: 600;
+  color: #cad8f5;
+}
+
+/** İletişim kutusu */
+.contact-info {
+  background: #22386a;
+  padding: 1rem 1.2rem;
+  border-radius: 0.6rem;
+  color: #e8ecfa;
+  margin-top: 1.2rem;
+  font-size: 1rem;
+}
+
+/** Linkler */
+a {
+  color: #91baf8;
+  transition: color 0.18s;
+}
+
+a:hover:not(nav a) {
+  color: #ffd700;
+  text-decoration: underline;
+}
+
+/** Responsive Tasarım */
+@media (max-width: 700px) {
+  main {
+    max-width: 97vw;
+    margin: 1rem auto 0 auto;
+    padding: 1.2rem 0.4rem;
+    border-radius: 0.7rem;
+  }
+  #dergi-viewer {
+    max-width: 100vw;
+    padding: 1.2rem 0.3rem 1.7rem 0.3rem;
+  }
+  #dergi-page-content {
+    min-height: 90px;
+    padding: 0.85rem 0.5rem;
+  }
+}
+
+@media (max-width: 450px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+  nav {
+    gap: 1rem;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
+  section > h2 {
+    font-size: 1.08rem;
+  }
+  #dergi-viewer button {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.1rem;
+    margin: 0 0.4rem;
+  }
+}
+
+/** Genel kart stili örneği */
+section {
+  margin-bottom: 2.2rem;
+  background: none;
+  border-radius: 0.7rem;
+  padding: 0;
+}

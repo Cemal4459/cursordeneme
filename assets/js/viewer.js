@@ -255,4 +255,53 @@ window.addEventListener("mouseup", e => {
     }
   }
 });
+// PDF.js render scale değerini 1.2 olarak sabitle
+const RENDER_SCALE = 1.2;
+
+// renderPage fonksiyonunu ölçek sabit ve işler bittikten sonra kaynağı temizleyecek şekilde güncelle
+async function renderPage(num) {
+  if (!window.pdfDoc) return;
+  pageNum = num;
+  const page = await window.pdfDoc.getPage(pageNum);
+
+  // Ölçek ve viewport
+  const viewport = page.getViewport({ scale: RENDER_SCALE });
+  pdfCanvas.height = viewport.height;
+  pdfCanvas.width = viewport.width;
+
+  // Sayfa sayacı ve input güncelle
+  pageCount.textContent = "/ " + window.pdfDoc.numPages;
+  pageInput.value = pageNum;
+
+  // PDF.js render işlemi
+  const renderContext = {
+    canvasContext: pdfCanvas.getContext("2d"),
+    viewport: viewport,
+  };
+  await page.render(renderContext).promise;
+
+  // Sayfa thumb'larında geçerli olanı işaretle
+  updateSelectedThumb(pageNum);
+
+  // Render sonrası: sayfa kaynağını temizle
+  if (page.cleanup) page.cleanup();
+
+  // Render sonrası: canvas'ta context temizliği (ek güvenlik)
+  try {
+    const ctx = pdfCanvas.getContext("2d");
+    // ctx.clearRect(0, 0, pdfCanvas.width, pdfCanvas.height); // Eğer görünür boşaltma istenirse açılabilir
+    // Ancak pdf.js'in cleanup() fonksiyonu raster kaynağını siler, bu genellikle yeterlidir
+  } catch (e) {}
+}
+
+// Diğer ilgili fonksiyonlarda da scale değerini buraya sabitleyin
+function fitToScreen(pageNumArg) {
+  renderPage(pageNumArg || pageNum);
+}
+
+// Başlangıçta ilgili sayfa yüklemesini de düzelt
+if (typeof pageNum !== 'undefined') {
+  renderPage(pageNum);
+}
+
 

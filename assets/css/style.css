@@ -551,3 +551,10 @@ body.fullscreen-ui nav{
 
 /* Zoom - / + butonları */
 #zoomOut, #zoomIn { display: none !important; }
+
+#pdfCanvas, .canvas-wrap, #magazine {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  will-change: transform;
+}

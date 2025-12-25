@@ -11,36 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    /* Tasarımı bozmadan Flipbook'u merkeze oturtan ayarlar */
-    .canvas-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0,0,0,0.2);
-      border-radius: 12px;
-      padding: 20px;
-      min-height: 700px;
-    }
-    #magazine {
-      width: 600px; /* Orijinal tasarımdaki genişlik */
-      height: 850px;
-    }
-    #magazine .page {
-      width: 600px;
-      height: 850px;
-      background-size: 100% 100%;
-      background-color: white;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-    @media (max-width: 768px) {
-      #magazine, #magazine .page {
-        width: 320px;
-        height: 450px;
-      }
-      .canvas-wrap { min-height: 500px; }
-    }
-  </style>
+  <!-- PDF.js CDN -->
+<script src="assets/vendor/pdfjs/pdf.min.js"></script> 
 </head>
 <body class="viewer-body">
   <div class="bg-orb orb-a"></div>
@@ -56,12 +28,24 @@
           <div class="brand-sub">Dergiyi Oku</div>
         </div>
       </a>
+
       <nav class="nav">
         <a href="index.html#sayilar">Sayılar</a>
         <a href="hakkinda.html">Hakkında</a>
         <a href="kulup.html">Kulüp</a>
         <a class="btn btn-ghost" href="assets/pdf/tekir-sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
       </nav>
+
+      <button class="nav-toggle" aria-label="Menüyü aç" data-nav-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-nav" data-mobile-nav>
+      <a href="index.html#sayilar">Sayılar</a>
+      <a href="hakkinda.html">Hakkında</a>
+      <a href="kulup.html">Kulüp</a>
+      <a href="assets/pdf/tekir-sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
     </div>
   </header>
 
@@ -72,61 +56,205 @@
           <h1>TEKİR • Sayı 1</h1>
           <p class="muted">Ekim — Kasım • 2025–2026</p>
         </div>
+
         <div class="viewer-controls">
-          <a class="btn btn-primary" href="assets/pdf/tekir-sayi-1.pdf" download>İndir</a>
+<a id="dlTop" class="btn btn-primary" href="assets/pdf/tekir-sayi-1.pdf" download>İndir</a>
+<button class="btn btn-ghost" id="fsBtn" title="Tam ekran">⛶</button>
+
           <div class="ctrl">
-            <button class="btn btn-soft" onclick="$('#magazine').turn('previous')">Geri</button>
-            <button class="btn btn-soft" onclick="$('#magazine').turn('next')">İleri</button>
+            <span class="muted small">Sayfa</span>
+            <input id="pageInput" type="number" min="1" value="1" />
+            <span class="muted small" id="pageCount">/ ?</span>
+            <button class="btn btn-soft" id="goBtn">Git</button>
           </div>
+
+          <div class="ctrl">
+            <button class="btn btn-ghost" id="zoomOut">−</button>
+            <button class="btn btn-ghost" id="zoomIn">+</button>
+          </div>
+
+          <a class="btn btn-primary" href="assets/pdf/tekir-sayi-1.pdf" download>İndir</a>
         </div>
       </div>
 
       <div class="viewer-search">
-        <input id="searchInput" placeholder="Dergide ara (ör: Atatürk, Cumhuriyet...)" />
-        <button class="btn btn-soft">Ara</button>
+        <input id="searchInput" placeholder="Dergide ara (ör: Atatürk, Cumhuriyet, LÖSEV…)" />
+        <button class="btn btn-soft" id="searchBtn">Ara</button>
+        <div class="muted small" id="searchResult"></div>
       </div>
 
       <div class="viewer-stage">
-        <div class="canvas-wrap">
-          <div id="magazine">
-            <div class="page" style="background-image:url(assets/img/sayfa1.png);"></div>
-            <div class="page" style="background-image:url(assets/img/sayfa2.png);"></div>
-            <div class="page" style="background-image:url(assets/img/sayfa3.png);"></div>
-            <div class="page" style="background-image:url(assets/img/sayfa4.png);"></div>
-          </div>
-        </div>
+<div class="canvas-wrap">
+  <button class="fs-nav fs-left" id="fsPrev" aria-label="Önceki sayfa">‹</button>
+  <button class="fs-nav fs-right" id="fsNext" aria-label="Sonraki sayfa">›</button>
+
+  <canvas id="pdfCanvas"></canvas>
+</div>
 
         <aside class="thumbs">
-          <div class="thumbs-head"><div class="muted small">Hızlı Geçiş</div></div>
-          <div id="thumbList" class="thumb-list">
-            <div class="thumb-item" onclick="$('#magazine').turn('page', 1)">1. Sayfa</div>
-            <div class="thumb-item" onclick="$('#magazine').turn('page', 2)">2. Sayfa</div>
-            <div class="thumb-item" onclick="$('#magazine').turn('page', 3)">3. Sayfa</div>
-            <div class="thumb-item" onclick="$('#magazine').turn('page', 4)">4. Sayfa</div>
+          <div class="thumbs-head">
+            <div class="muted small">Hızlı Geçiş</div>
           </div>
+          <div id="thumbList" class="thumb-list"></div>
         </aside>
       </div>
     </div>
   </main>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://rawcdn.githack.com/blasten/turn.js/master/lib/turn.min.js"></script>
-  
-  <script>
-    $(window).ready(function() {
-      $('#magazine').turn({
-        display: 'single', // Mevcut dar tasarıma en uygunu tekli görünümdür
-        acceleration: true,
-        gradients: true,
-        elevation: 50
-      });
-    });
-
-    // Klavye ok tuşları kontrolü
-    $(window).bind('keydown', function(e){
-      if (e.keyCode == 37) $('#magazine').turn('previous');
-      else if (e.keyCode == 39) $('#magazine').turn('next');
-    });
-  </script>
+  <script src="assets/js/app.js"></script>
+<script src="assets/js/viewer.js?v=FINAL9"></script>
 </body>
 </html>
+<!-- jQuery ve turn.js ekle -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@4/turn.min.js"></script>
+<style>
+  /* Flipbook boyutu ve ortalaması için */
+  #magazine-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1000px;
+    width: 100%;
+  }
+  #magazine {
+    width: 700px;
+    height: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,.14), 0 1.5px 6px rgba(0,0,0,.07);
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  #magazine .page {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+  #magazine .page img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  /* Disable selection for turn.js pages */
+  #magazine span, #magazine div, #magazine img {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Mobilde scroll */
+  @media (max-width: 800px) {
+    #magazine-wrap {
+      height: calc(100vw * 1.42);
+      min-height: 400px;
+    }
+    #magazine {
+      width: 98vw;
+      height: calc(98vw * 1.42);
+      min-width: 220px;
+      min-height: 320px;
+    }
+  }
+</style>
+
+<div id="magazine-wrap">
+  <div id="magazine"></div>
+</div>
+
+<script>
+  $(function() {
+    // Dergi toplam sayfa
+    var totalPages = 34;
+    // Sayfaları DOM'a ekle
+    for(let i=1; i<=totalPages; i++) {
+      let imgPath = 'assets/img/sayfa' + i + '.png';
+      $('#magazine').append(
+        `<div class="page"><img src="${imgPath}" alt="Dergi Sayfa ${i}" draggable="false" /></div>`
+      );
+    }
+
+    // turn.js başlat
+    $('#magazine').turn({
+      width: 700,
+      height: 1000,
+      elevation: 40,
+      gradients: true,
+      autoCenter: true,
+      display: 'single',
+      when: {
+        turning: function(event, page, view) {
+          // İlk sayfa TEK, sonra çiftli
+          if (page === 2) {
+            $('#magazine').turn('display', 'double');
+          }
+          if (page === 1) {
+            $('#magazine').turn('display', 'single');
+          }
+        },
+        turned: function(event, page, view) {
+          // Aktif thumb'u işaretle
+          $('.thumb-num').removeClass('active');
+          $('.thumb-num[data-page="'+page+'"]').addClass('active');
+        }
+      }
+    });
+
+    // Sayfa geçince thumb'u işaretle (ilk açılış dahil)
+    $('#magazine').on('turned', function(e, page) {
+      $('.thumb-num').removeClass('active');
+      $('.thumb-num[data-page="'+page+'"]').addClass('active');
+    });
+
+    // thumbList tıklamasını yakala
+    $('#thumbList').on('click', '.thumb-num', function() {
+      var page = parseInt($(this).attr('data-page'), 10);
+      if(!isNaN(page)){
+        $('#magazine').turn('page', page);
+      }
+    });
+
+    // Sayfa açıldığında ilkinde display tek, sonrakiler çift yapılır
+    $('#magazine').bind('start', function(event, pageObject, corner) {
+      if ($('#magazine').turn('page') === 1) {
+        $('#magazine').turn('display', 'single');
+      }
+    });
+
+    // Dışarıdan git (örn: sayfa kutusuna) - mevcut goBtn davranışı bir <canvas> hedefliyordu, turn.js'ye bağla
+    $('#goBtn').on('click', function() {
+      var page = parseInt($('#pageInput').val(), 10);
+      if(page > 0 && page <= totalPages){
+        $('#magazine').turn('page', page);
+      }
+    });
+
+    // Bir başka örnek: Page input direct goto (enter basınca)
+    $('#pageInput').on('keydown', function(e) {
+      if (e.key === 'Enter') {
+        $('#goBtn').click();
+      }
+    });
+
+    // turn.js page sayısını güncelle
+    function updatePageCount() {
+      $('#pageCount').text('/ ' + totalPages);
+    }
+    updatePageCount();
+
+    // turn.js page değiştikçe inputu güncelle
+    $('#magazine').on('turning turned', function(e, page) {
+      $('#pageInput').val(page);
+    });
+
+    // +/- zoom tuşları turn.js için çalışmaz, isterseniz görseli ölçekleyebilirsiniz (gereksizse kaldırılabilir)
+
+    // Olası: Arama ve diğer mevcut kontrolleri bozmadan çalışır.
+  });
+</script>

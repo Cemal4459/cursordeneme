@@ -481,3 +481,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Aşağıdaki kodu, navbar'daki "BURAYA LOGO GELECEK" yazısı yerine koyabilirsiniz -->
 <img src="logo.png" alt="Kütüphanecilik Kulübü Logo" class="w-10 h-10 rounded-full object-contain bg-white shadow" />
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 'Dergiyi Oku' butonunu bul
+  var dergiOkuBtn = document.getElementById('dergi-modal-link');
+  if (dergiOkuBtn) {
+    dergiOkuBtn.setAttribute('href', 'sayi1.pdf');
+    dergiOkuBtn.setAttribute('target', '_blank');
+    dergiOkuBtn.setAttribute('rel', 'noopener');
+  }
+});
+</script>

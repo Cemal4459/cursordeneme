@@ -492,3 +492,238 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<!-- Google Fonts & AOS (Animation On Scroll) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+<style>
+  :root {
+    --kent-navy: #243458;
+    --kent-gold: #CFB53B;
+    --kent-beige: #F5F5DC;
+    --glass-bg: rgba(255,255,255,0.68);
+    --glass-border: rgba(36,52,88,0.09);
+    --glass-blur: blur(14px);
+  }
+  html {
+    background: var(--kent-beige);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: var(--kent-navy);
+  }
+  body {
+    background: var(--kent-beige) !important;
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  }
+  h1, h2, h3, .font-serif, .serif {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
+  /* GLASS EFFECTS */
+  .glass {
+    background: var(--glass-bg);
+    border: 1.8px solid var(--glass-border);
+    /* For backdrop-blur to work, needs 'background' non-transparent */
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: 0 3px 32px 0 rgba(36, 52, 88, 0.10);
+  }
+  /* Smooth elevated card with glass effect */
+  .magazine-card {
+    transition: 
+      transform 0.33s cubic-bezier(.48,1.5,.24,1), 
+      box-shadow 0.28s cubic-bezier(.41,1.4,.38,1.01);
+    border-radius: 1.3rem;
+    border: 2.5px solid var(--kent-gold);
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+  .magazine-card:hover {
+    transform: translateY(-12px) scale(1.025);
+    box-shadow: 0 12px 52px 0 rgba(36,52,88,0.18), 0 1.2px 16px 0 rgba(207,181,59,0.09);
+    z-index: 5;
+  }
+  /* Gold effect for accents */
+  .text-kent-gold { color: var(--kent-gold) !important; }
+  .bg-kent-gold { background: var(--kent-gold) !important; }
+  .border-kent-gold { border-color: var(--kent-gold) !important; }
+  .text-kent-navy { color: var(--kent-navy) !important; }
+  .bg-kent-navy { background: var(--kent-navy) !important; }
+  /* Button transitions and gold background */
+  .lux-btn {
+    background: var(--kent-gold);
+    color: var(--kent-navy);
+    font-weight: 600;
+    transition: background 0.21s, box-shadow 0.23s, color 0.18s;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 18px 0 rgba(207,181,59,0.10);
+  }
+  .lux-btn:hover {
+    background: #C4A623;
+    color: #fff;
+    box-shadow: 0 4px 24px 0 rgba(207,181,59,0.14);
+  }
+  /* AOS Animations baseline if library doesn't work */
+  [data-aos] { opacity: 0; transition-property: opacity,transform; }
+  [data-aos].aos-animate { opacity: 1 !important; }
+  .aos-fade-up-init { transform: translateY(30px);}
+  .aos-fade-up-done { transform: none;}
+  /* NAV GLASS */
+  .glass-navbar {
+    background: rgba(255,255,255,0.60);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1.8px solid var(--kent-gold);
+    box-shadow: 0 2px 18px 0 rgba(36,52,88,0.09);
+  }
+</style>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if(window.AOS) AOS.init({
+      duration: 650,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 44
+    });
+    // Fallback: in case AOS is not loaded, show sections
+    setTimeout(() => {
+      document.querySelectorAll('[data-aos]').forEach(el=>{
+        el.classList.add('aos-animate','aos-fade-up-done');
+        el.style.opacity = 1;
+        el.style.transform = 'none';
+      });
+    }, 1200);
+  });
+</script>
+
+<!-- Navbar'da glass ve font update -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const nav = document.querySelector("nav");
+    if(nav) {
+      nav.classList.add('glass-navbar','glass','backdrop-blur-lg');
+      nav.style.fontFamily = "'Inter', sans-serif";
+      nav.style.fontWeight = "600";
+      nav.style.background = "rgba(255,255,255,0.60)";
+      nav.style.color = "var(--kent-navy)";
+      nav.style.boxShadow = "0 2px 18px 0 rgba(36,52,88,0.13)";
+    }
+    // Update nav logo/icon to use mat gold & larger on glass
+    const navIcon = nav?.querySelector("span.font-bold.text-xl,[aria-label='Kütüphanecilik Kulübü Logo']");
+    if(navIcon) {
+      navIcon.style.color = "var(--kent-gold)";
+      navIcon.style.background = "rgba(36,52,88,0.085)";
+      navIcon.style.fontSize = "2rem";
+    }
+  });
+</script>
+
+<!-- --- Main Content Modern Luxury Redesign --- -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hero Section
+    let hero = document.querySelector('section.flex.md\\:flex-row');
+    if(hero) {
+      hero.setAttribute('data-aos','fade-up');
+      hero.className =
+        "flex flex-col md:flex-row items-center gap-14 mb-20";
+      let title = hero.querySelector('h1');
+      if(title) {
+        title.className = "serif text-4xl md:text-5xl font-serif font-extrabold mb-3 text-kent-navy";
+        title.style.lineHeight = "1.19";
+        // gold highlight on span
+        let sp = title.querySelector("span");
+        if(sp) { sp.className = "text-kent-gold"; }
+      }
+      let p = hero.querySelector('p');
+      if(p) {
+        p.className = "text-lg text-kent-navy/90 mb-8 max-w-2xl";
+        p.style.fontFamily = "'Inter',sans-serif";
+      }
+      let a = hero.querySelector('a');
+      if(a) {
+        a.className = "lux-btn px-8 py-3 text-lg shadow transition";
+        a.style.textDecoration = "none";
+        a.innerHTML = "Dergimizi Hemen Keşfet <span style='font-size:1.1em;vertical-align:-2px'>→</span>";
+      }
+      // Paw maskot
+      let maskot = hero.querySelector("div.rounded-2xl");
+      if(maskot) {
+        maskot.className = "rounded-3xl shadow-xl w-60 h-60 bg-white/80 flex items-center justify-center text-kent-gold text-[6rem] border-4 border-kent-gold glass";
+        maskot.style.backdropFilter = "blur(7px)";
+        maskot.style.webkitBackdropFilter = "blur(7px)";
+        maskot.innerHTML = '<span style="text-shadow: 0 8px 26px #cfb53b3a">🐾</span>';
+      }
+    }
+    // About Section
+    let about = document.getElementById('hakkimizda');
+    if(about) about.setAttribute('data-aos','fade-up');
+    // Events
+    let etkinlikler = document.getElementById('etkinlikler');
+    if(etkinlikler) etkinlikler.setAttribute('data-aos','fade-up');
+    // Contact
+    let iletisim = document.getElementById('iletisim');
+    if(iletisim) iletisim.setAttribute('data-aos','fade-up');
+    // Dergi section
+    let tekir = document.getElementById('tekir-dergisi');
+    if(tekir) {
+      tekir.setAttribute('data-aos','fade-up');
+      const grid = tekir.querySelector('.grid');
+      if(grid) {
+        grid.className = 'w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 mt-8';
+        // Magazine card update
+        grid.querySelectorAll('div.bg-white').forEach(card=>{
+          card.className = "magazine-card bg-white flex flex-row md:flex-row flex-1 gap-0 overflow-hidden glass border-kent-gold relative shadow-md transition";
+          // Card Header
+          let header = card.querySelector('div.bg-kent-navy');
+          if(header) {
+            header.className = "flex flex-col md:flex-row items-center gap-2 px-8 py-9 bg-kent-navy/70 text-kent-gold";
+            header.style.backdropFilter = "blur(7px)";
+            let badge = header.querySelector('span.bg-kent-gold');
+            if(badge) {
+              badge.className="bg-kent-gold text-kent-navy font-extrabold text-xl w-12 h-12 rounded-full grid place-items-center shadow-lg border border-kent-navy/10";
+              badge.style.marginRight="0.6rem";
+            }
+            let baslik = header.querySelector('span.font-semibold');
+            if(baslik) baslik.className="serif text-2xl font-bold tracking-wide text-kent-gold/95";
+          }
+          // Card Body
+          let body = card.querySelector('div.flex-1');
+          if(body) {
+            body.className="flex-1 px-8 py-7 text-kent-navy font-medium text-base md:text-lg";
+            let sub = body.querySelector('.text-sm');
+            if(sub) sub.className="block mt-2 text-kent-navy/60 text-base";
+          }
+          // Button footer
+          let footer = card.querySelector('div.px-6.pb-4');
+          if(footer) {
+            footer.className = "flex items-end px-8 pb-7";
+            let a = footer.querySelector('a');
+            if(a) a.className = "lux-btn font-medium text-base py-2.5 px-7 shadow-md border-none transition";
+          }
+        });
+      }
+    }
+  });
+</script>
+
+<!-- Footer Glass Effect -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let footer = document.querySelector('footer');
+  if(footer) {
+    footer.classList.add('glass','backdrop-blur-lg','border-t','border-kent-gold','text-kent-navy');
+    footer.style.background = 'rgba(255,255,255,0.48)';
+    footer.style.fontFamily = "'Inter',sans-serif";
+    footer.style.fontWeight = "500";
+    footer.style.letterSpacing = "0.01em";
+    footer.style.fontSize = "1.08rem";
+  }
+});
+</script>

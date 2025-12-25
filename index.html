@@ -1,214 +1,483 @@
+
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Üniversite Kulübü</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>İstanbul Kent Üniversitesi Kütüphanecilik Kulübü</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind Theme Ayarları (Koyu lacivert, bej, altın sarısı detaylar) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'kent-navy': '#243458',
+            'kent-beige': '#f9ecd8',
+            'kent-gold': '#ffd700',
+            'kent-gold-dark': '#ccad00'
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
-  <header>
-    <h1>Modern Üniversite Kulübü</h1>
-    <p>Birlikte Öğren, Paylaş, Geliş!</p>
-  </header>
-  
-  <nav>
-    <a href="#anasayfa" class="active" onclick="showSection('anasayfa', this); return false;">Anasayfa</a>
-    <a href="#kulup" onclick="showSection('kulup', this); return false;">Kulüp</a>
-    <a href="#dergi" onclick="showSection('dergi', this); return false;">Dergi</a>
-  </nav>
-  
-  <main>
-    <!-- Anasayfa -->
-    <section id="anasayfa-section">
-      <h2>Hoş Geldiniz!</h2>
-      <p>
-        Modern Üniversite Kulübü'ne hoş geldiniz. Etkinliklerimiz, dergimiz ve topluluğumuz hakkında bilgi almak için menüyü kullanabilirsiniz.
-      </p>
-    </section>
-    
-    <!-- Kulüp Tanıtımı -->
-    <section id="kulup-section" style="display:none">
-      <h2>Kulübümüz</h2>
-      <p>
-        Modern Üniversite Kulübü olarak amacımız öğrencilerin akademik ve sosyal gelişimine katkıda bulunmak.<br>
-        Atölyeler, seminerler ve sosyal etkinliklerle aktif bir topluluk kuruyoruz. Tüm üniversite öğrencileri kulübümüze katılabilir!
-      </p>
-      <div class="contact-info">
-        <strong>İletişim:</strong><br>
-        Email: info@modernkulup.edu.tr<br>
-        Instagram: <a href="https://instagram.com/modernkulup" target="_blank">@modernkulup</a>
+<body class="bg-kent-beige min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="w-full bg-kent-navy text-kent-gold shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-3">
+        <!-- BURAYA LOGO GELECEK -->
+        <div class="bg-kent-gold/20 rounded-full w-10 h-10 grid place-items-center text-kent-gold font-bold text-xl">
+          <span>🦁</span>
+        </div>
+        <span class="font-semibold text-xl tracking-wide text-kent-gold-dark hidden sm:inline">Kütüphanecilik Kulübü</span>
       </div>
-    </section>
-    
-    <!-- Dergi Okuma Bölümü -->
-    <section id="dergi-section" style="display:none">
-      <h2>Kulüp Dergisi</h2>
-      <div id="dergi-viewer" style="text-align:center;">
-        <button id="prev-page" onclick="changePage(-1)">&#8592;</button>
-        <span id="dergi-page-num" style="margin: 0 1rem;">1 / 3</span>
-        <button id="next-page" onclick="changePage(1)">&#8594;</button>
-        <div id="dergi-page-content" style="margin-top:1.5rem; min-height: 100px;">
-          <!-- Dergi ilk sayfa içeriği -->
-          <h3>Başlangıç</h3>
-          <p>Modern Kulüp Dergisi'ne hoş geldiniz!</p>
+      <ul class="flex space-x-6 font-medium">
+        <li><a href="#" class="hover:text-kent-beige transition">Ana Sayfa</a></li>
+        <li><a href="#hakkimizda" class="hover:text-kent-beige transition">Hakkımızda</a></li>
+        <li><a href="#tekir-dergisi" class="hover:text-kent-beige transition">Tekir Dergisi</a></li>
+        <li><a href="#etkinlikler" class="hover:text-kent-beige transition">Etkinlikler</a></li>
+        <li><a href="#iletisim" class="hover:text-kent-beige transition">İletişim</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Ana içerik -->
+  <main class="flex-1 container mx-auto px-4 py-8">
+
+    <!-- Hero Bölümü -->
+    <section class="flex flex-col md:flex-row items-center gap-10 mb-12">
+      <div class="flex-1">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-kent-navy mb-4">İstanbul Kent Üniversitesi<br><span class="text-kent-gold-dark">Kütüphanecilik Kulübü</span></h1>
+        <p class="text-lg text-kent-navy mb-6 max-w-xl">
+          Okumak, paylaşmak ve gelişmek için bir aradayız. Kulübümüz kütüphanecilik, bilgi ve kültürle ilgilenen herkesi bekliyor!
+        </p>
+        <a href="#tekir-dergisi" class="inline-block bg-kent-gold hover:bg-kent-gold-dark text-kent-navy font-semibold px-6 py-2 rounded-lg shadow transition">Tekir Dergimiz Hakkında →</a>
+      </div>
+      <div class="flex-1 flex items-center justify-center">
+        <!-- BURAYA LOGO VEYA MASKOT İLLUSTRASYONU GELECEK -->
+        <div class="rounded-2xl shadow-md w-48 h-48 bg-kent-navy flex items-center justify-center text-kent-gold text-[5rem]">
+          🐾
         </div>
       </div>
     </section>
+
+    <!-- Tekir Dergisi Tanıtım & Kartları -->
+    <section id="tekir-dergisi" class="mb-16">
+      <h2 class="text-2xl font-bold text-kent-navy flex items-center gap-2 mb-4">
+        <span>📰</span> Tekir Dergimiz
+      </h2>
+      <p class="mb-6 text-kent-navy max-w-2xl">
+        Tekir, Kütüphanecilik Kulübü üyeleri tarafından hazırlanmış ve farklı sayılarını çevrim içi yayımladığımız dergimizdir. Dergimizde kütüphanecilik, bilgi okuryazarlığı, edebiyat ve kampüs yaşantısı ile ilgili özgün içerikler bulabilirsiniz.
+      </p>
+      <!-- Dergi Sayıları Kart Grid -->
+      <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Dergi Kartı Başlangıç -->
+        <div class="bg-white rounded-xl border border-kent-gold shadow hover:shadow-lg transition flex flex-col">
+          <div class="bg-kent-navy rounded-t-xl px-6 py-4 flex items-center gap-2">
+            <span class="bg-kent-gold rounded w-8 h-8 grid place-items-center text-kent-navy font-bold">1</span>
+            <span class="font-semibold text-lg text-kent-gold">Tekir - İlk Sayı</span>
+          </div>
+          <div class="flex-1 px-6 py-4 text-kent-navy">
+            • Kasım 2023<br>
+            • Kütüphane Sevgisi & Tanışma <br>
+            <span class="text-sm text-kent-navy/70">Bu sayıda kulübümüzün kuruluş hikayesi ve ilk adımlarını bulabilirsiniz.</span>
+          </div>
+          <div class="px-6 pb-4">
+            <a href="#" class="inline-block font-medium text-kent-navy border-b-2 border-kent-gold hover:text-kent-gold-dark transition">PDF'yi Görüntüle</a>
+          </div>
+        </div>
+        <!-- Dergi Kartı -->
+        <div class="bg-white rounded-xl border border-kent-gold shadow hover:shadow-lg transition flex flex-col">
+          <div class="bg-kent-navy rounded-t-xl px-6 py-4 flex items-center gap-2">
+            <span class="bg-kent-gold rounded w-8 h-8 grid place-items-center text-kent-navy font-bold">2</span>
+            <span class="font-semibold text-lg text-kent-gold">Tekir - Bahar 2024</span>
+          </div>
+          <div class="flex-1 px-6 py-4 text-kent-navy">
+            • Mayıs 2024<br>
+            • Bilgiye Erişim & Kulüp Etkinlikleri<br>
+            <span class="text-sm text-kent-navy/70">Yenilenen kadromuzla kampüsteki etkinliklere ve yeni yazarlarımıza yer verdik.</span>
+          </div>
+          <div class="px-6 pb-4">
+            <a href="#" class="inline-block font-medium text-kent-navy border-b-2 border-kent-gold hover:text-kent-gold-dark transition">PDF'yi Görüntüle</a>
+          </div>
+        </div>
+        <!-- Dergi Kartı (Yenileri İçin Kopyalanabilir) -->
+        <div class="bg-white rounded-xl border border-kent-gold shadow hover:shadow-lg transition flex flex-col">
+          <div class="bg-kent-navy rounded-t-xl px-6 py-4 flex items-center gap-2">
+            <span class="bg-kent-gold rounded w-8 h-8 grid place-items-center text-kent-navy font-bold">3</span>
+            <span class="font-semibold text-lg text-kent-gold">Tekir - Son Sayı</span>
+          </div>
+          <div class="flex-1 px-6 py-4 text-kent-navy">
+            • Yayında!<br>
+            • Tema: <span class="italic">Güncel Dönem</span><br>
+            <span class="text-sm text-kent-navy/70">Yeni sayımız yayımlandı! İçeriği keşfetmek için hemen göz atabilirsiniz.</span>
+          </div>
+          <div class="px-6 pb-4">
+            <a href="#" class="inline-block font-medium text-kent-navy border-b-2 border-kent-gold hover:text-kent-gold-dark transition">PDF'yi Görüntüle</a>
+          </div>
+        </div>
+        <!-- ... Yeni sayılar eklenecekse yukarıdaki kart kopyalanabilir ... -->
+      </div>
+    </section>
+
+    <!-- Hakkımızda Bölümü -->
+    <section id="hakkimizda" class="mb-16">
+      <h2 class="text-2xl font-bold text-kent-navy mb-4 flex items-center gap-2"><span>📚</span> Hakkımızda</h2>
+      <p class="max-w-2xl text-kent-navy/90">
+        İstanbul Kent Üniversitesi Kütüphanecilik Kulübü, okuma kültürünü yaymak, bilgi paylaşımını teşvik etmek ve yeni arkadaşlıklar kurmak amacıyla kurulan öğrenci topluluğudur. Her yıl düzenlediğimiz etkinlikler, seminerler ve dergi çalışmalarıyla üniversitemiz ve çevresiyle bilgi köprüleri kuruyoruz.
+      </p>
+    </section>
+
+    <!-- Etkinlikler Bölümü -->
+    <section id="etkinlikler" class="mb-16">
+      <h2 class="text-2xl font-bold text-kent-navy mb-4 flex items-center gap-2"><span>🎉</span> Etkinlikler</h2>
+      <ul class="list-disc pl-7 space-y-2 text-kent-navy/90">
+        <li>Okuma Günleri & Kitap Tartışmaları</li>
+        <li>Misafir Konuşmacılar ile Söyleşi Etkinlikleri</li>
+        <li>Kütüphane Turları & Bilgi Okuryazarlığı Atölyeleri</li>
+        <li>Dergi Hazırlama ve Atölyeler</li>
+      </ul>
+    </section>
+
+    <!-- İletişim Bölümü -->
+    <section id="iletisim" class="mb-6">
+      <h2 class="text-2xl font-bold text-kent-navy mb-4 flex items-center gap-2"><span>✉️</span> İletişim</h2>
+      <div class="rounded-xl bg-kent-navy/5 border border-kent-navy/20 p-6 max-w-xl">
+        <p class="text-kent-navy mb-2">Kulüp ile iletişime geçmek için:</p>
+        <ul class="text-kent-navy space-y-1">
+          <li><b>E-posta:</b> <a href="mailto:kutuphane@kent.edu.tr" class="text-kent-gold hover:underline">kutuphane@kent.edu.tr</a></li>
+          <li><b>Instagram:</b> <a href="https://instagram.com/ikukutuphanecilik" target="_blank" class="text-kent-gold hover:underline">@ikukutuphanecilik</a></li>
+        </ul>
+      </div>
+    </section>
   </main>
-  
-  <script src="script.js"></script>
+
+  <!-- Footer -->
+  <footer class="bg-kent-navy text-kent-gold text-center py-5">
+    © 2024 İstanbul Kent Üniversitesi Kütüphanecilik Kulübü
+  </footer>
 </body>
 </html>
-<!-- Dergi Kapak Tasarımı -->
+<!-- Tekir Dergisi Dinamik Modal ve Kart Scriptleri -->
 <style>
-  #dergi-cover-overlay {
+  /* Basit modal tasarımı */
+  #dergi-modal-bg {
+    display: none;
     position: fixed;
-    z-index: 1002;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, #1a2547 80%, #fbcb07 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: #fff;
-    animation: coverFadeIn 0.7s;
-  }
-  #dergi-cover-inner {
-    background: rgba(17,26,53,0.97);
-    border-radius: 1.9rem;
-    box-shadow: 0 8px 44px 0 rgba(20,33,61,0.35);
-    text-align: center;
-    padding: 3rem 2.5rem 2.1rem 2.5rem;
-    max-width: 350px;
-    width: 92vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #dergi-cover-logo {
-    width: 96px;
-    height: 96px;
-    margin-bottom: 1.5rem;
-    display: flex;
+    z-index: 1001;
+    inset: 0;
+    background: rgba(36,52,88,0.36);
+    transition: background 0.2s;
     align-items: center;
     justify-content: center;
   }
-  #dergi-cover-title {
-    font-size: 2.2rem;
-    letter-spacing: 2px;
-    font-weight: 700;
-    margin-bottom: .7rem;
-    color: #ffe26e;
-    text-shadow: 0 3px 16px #2c3556, 0 1px 0 #fff8;
-  }
-  #dergi-cover-date {
-    font-size: 1.1rem;
-    color: #dbeafe;
-    margin-top: 1.2rem;
-    letter-spacing: 1px;
-    font-weight: 500;
-  }
-  #open-dergi-btn {
-    /* prominent button */
-    margin-top:2.1rem;
-    background: linear-gradient(90deg, #ffb700, #ffdf7a);
-    color: #182033;
-    font-weight: 600;
-    border: none;
-    padding: 0.8rem 2.4rem;
+  #dergi-modal-box {
+    background: #f8fafc;
     border-radius: 1rem;
+    box-shadow: 0 2px 16px 0 rgba(36,52,88,0.20);
+    max-width: 95vw;
+    width: 410px;
+    padding: 2.1rem 1.6rem 1.3rem 1.6rem;
+    position: relative;
+    animation: modalfadein 0.26s cubic-bezier(.48,1.62,.61,.98);
+  }
+  @keyframes modalfadein { from{transform:scale(1.09) translateY(26px);opacity:0.15} to{opacity:1;transform:none;} }
+  #dergi-modal-close {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: #243458;
     cursor: pointer;
-    font-size: 1.15rem;
-    letter-spacing: 1.3px;
-    box-shadow: 0 1px 9px #ffe26e44;
-    transition: background 0.17s, color 0.17s,transform 0.14s;
   }
-  #open-dergi-btn:hover {
-    background: #fffbe7;
-    color: #be7e01;
-    transform: scale(1.04);
+  #dergi-modal-cover {
+    width: 110px;
+    height: 138px;
+    object-fit: cover;
+    border-radius: 0.45rem;
+    box-shadow: 0 4px 18px 0 rgba(36,52,88,0.07);
+    margin-right: 1.2rem;
   }
-  @media (max-width: 500px) {
-    #dergi-cover-inner {
-      padding: 1.2rem 0.4rem 1.5rem 0.4rem;
-      border-radius: 0.8rem;
-      max-width: 99vw;
-    }
-    #dergi-cover-title {
-      font-size: 1.1rem;
-    }
-    #dergi-cover-logo {
-      width: 60px;
-      height: 60px;
-      margin-bottom: .85rem;
-    }
+  #dergi-modal-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
   }
-  @keyframes coverFadeIn {
-    from { opacity:0; }
-    to   { opacity:1; }
+  #dergi-modal-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: #243458;
+    margin-bottom: 0.2rem;
+  }
+  #dergi-modal-date {
+    font-size: 1rem;
+    color: #e5a200;
+    margin-bottom: 0.55rem;
+  }
+  #dergi-modal-link {
+    display: inline-block;
+    background: #ffb700;
+    color: #243458;
+    font-weight: 600;
+    padding: 0.5rem 1.09rem;
+    border-radius: 0.51rem;
+    text-decoration: none;
+    margin-top: 0.7rem;
+    margin-bottom: 0.35rem;
+    transition: background 0.19s;
+  }
+  #dergi-modal-link:hover { background: #ffd063; }
+  #dergi-modal-icerik {
+    font-size: 1.04rem;
+    color: #243458d0;
+    margin-top: 1rem;
+    padding-left: 1.14rem;
+    margin-bottom: 0.6rem;
+  }
+  #dergi-modal-bg.show {
+    display: flex;
+    animation: none;
+  }
+  @media(max-width:560px) {
+    #dergi-modal-box {width:97vw;padding:1.3rem 0.5rem;}
+    #dergi-modal-head {flex-direction:column;align-items:center;gap:0.65rem;}
+    #dergi-modal-cover {margin-right:0;}
   }
 </style>
-<div id="dergi-cover-overlay">
-  <div id="dergi-cover-inner">
-    <div id="dergi-cover-logo" aria-label="Kulüp Logosu">
-      <!-- Basit SVG Kulüp Logosu örnek -->
-      <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="42" cy="42" r="38" fill="#1d326b" stroke="#ffb700" stroke-width="5"/>
-        <path d="M42 21 L52 44 L32 44 Z" fill="#ffb700"/>
-        <circle cx="42" cy="34" r="5" fill="#fff"/>
-        <rect x="37" y="46" width="10" height="17" rx="4.3" fill="#ffe066"/>
-      </svg>
+<div id="dergi-modal-bg">
+  <div id="dergi-modal-box" role="dialog" aria-modal="true">
+    <button id="dergi-modal-close" aria-label="Kapat">&times;</button>
+    <div id="dergi-modal-head">
+      <img id="dergi-modal-cover" src="" alt="Dergi Kapağı">
+      <div>
+        <div id="dergi-modal-title"></div>
+        <div id="dergi-modal-date"></div>
+        <a id="dergi-modal-link" href="#" target="_blank" rel="noopener">Dergiyi Oku</a>
+      </div>
     </div>
-    <div id="dergi-cover-title">Modern Kulüp Dergisi</div>
-    <div id="dergi-cover-date">
-      Haziran 2024
+    <div>
+      <div style="font-weight:600;margin-bottom:0.5rem;margin-top:0.6rem;color:#243458">İçindekiler</div>
+      <ul id="dergi-modal-icerik"></ul>
     </div>
-    <button id="open-dergi-btn">Dergiyi Oku</button>
   </div>
 </div>
 <script>
-  // Sadece dergi bölümünde gösterilsin
-  function isDergiSectionVisible() {
-    var section = document.getElementById('dergi-section');
-    return section && section.style.display !== "none";
-  }
-  // Kapak açma fonksiyonu
-  function hideDergiCover() {
-    var overlay = document.getElementById('dergi-cover-overlay');
-    if (overlay) overlay.style.display = "none";
-  }
-  // Kapak sadece dergi kısmına ilk girildiğinde gösterilsin
-  (function(){
-    var shown = false;
-    function tryShowCover() {
-      if (isDergiSectionVisible() && !shown) {
-        var overlay = document.getElementById('dergi-cover-overlay');
-        if (overlay) overlay.style.display = "";
-        shown = true;
-      } else if (!isDergiSectionVisible()) {
-        var overlay = document.getElementById('dergi-cover-overlay');
-        if (overlay) overlay.style.display = "none";
+  // Dergi veri seti (örnek — yeni sayı ekleyin veya düzenleyin!)
+  const dergiler = [
+    {
+      title: 'Tekir Dergisi No:1',
+      date: 'Haziran 2024',
+      icerik: [
+        'Editörden: "Yenilik ve Kitaplar"',
+        'Dosya: Sürdürülebilir Kütüphaneler',
+        'Röportaj: Ayşe Yılmaz ile Söyleşi',
+        'Yazı: Kitap Rafininden Öyküler',
+        'Kulüp Faaliyetlerinden Kareler'
+      ],
+      cover: 'dergi_kapak1.jpg', // Kapağın yolunu değiştirin!
+      pdf: 'tekir_sayi1.pdf'
+    },
+    // İleride yeni sayılar şablon olarak eklenebilir:
+    // {
+    //   title: 'Tekir Dergisi No:2',
+    //   date: 'Aralık 2024',
+    //   icerik: [...],
+    //   cover: 'dergi_kapak2.jpg',
+    //   pdf: 'tekir_sayi2.pdf'
+    // }
+  ];
+
+  // Dergi kartlarını ilgili bölüme ekle (örn: <div id="tekir-dergi-listesi"></div>)
+  function renderDergiKartlari() {
+    let container = document.getElementById('tekir-dergi-listesi');
+    if (!container) {
+      // Yoksa, etkinlikler vb'den önce ana içeriğe ekle
+      const main = document.querySelector('main');
+      const refSec = document.querySelector('section#hakkimizda');
+      container = document.createElement('section');
+      container.className = "mb-12";
+      container.id = "tekir-dergi-listesi";
+      container.innerHTML = `
+        <h2 class="text-2xl font-bold text-kent-navy mb-4 flex items-center gap-2"><span>📰</span> Tekir Dergisi</h2>
+        <div class="flex flex-wrap gap-6" id="dergi-kartlar"></div>
+      `;
+      if (main && refSec) {
+        main.insertBefore(container, refSec);
       }
     }
-    // Menüler arası geçiş için showSection fonksiyonu override
-    var origShowSection = window.showSection;
-    window.showSection = function(id, el) {
-      if(origShowSection) origShowSection(id, el);
-      tryShowCover();
-    };
-    document.getElementById('open-dergi-btn').onclick = hideDergiCover;
-    // Sayfa ilk yüklenince
-    document.addEventListener('DOMContentLoaded', function(){
-      if(isDergiSectionVisible()){
-        // göster
-        shown = false;
-        tryShowCover();
-      } else {
-        // Başlangıçta dergi görünmüyorsa gizle
-        var overlay = document.getElementById('dergi-cover-overlay');
-        if (overlay) overlay.style.display = "none";
-      }
+    // Kartları doldur
+    const kartlar = container.querySelector('#dergi-kartlar');
+    kartlar.innerHTML = '';
+    dergiler.forEach((dergi, i) => {
+      const c = document.createElement('div');
+      c.className =
+        'rounded-xl bg-white border border-kent-navy/30 shadow-sm max-w-xs w-[240px] p-4 flex flex-col items-center hover:shadow-lg transition cursor-pointer group select-none';
+      c.tabIndex = 0;
+      c.setAttribute('role', 'button');
+      c.setAttribute('aria-label', dergi.title + ' detaylarını aç');
+      c.innerHTML = `
+        <img src="${dergi.cover}" alt="${dergi.title} kapağı" class="w-28 h-36 object-cover rounded shadow-md mb-3 transition group-hover:scale-105">
+        <div class="font-bold text-lg text-kent-navy mb-1 text-center">${dergi.title}</div>
+        <div class="text-kent-gold text-sm mb-2">${dergi.date}</div>
+        <button class="mt-auto inline-block bg-kent-gold text-kent-navy px-3 py-1.5 rounded font-medium hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-kent-gold/70 transition dergi-kart-oku-btn">Dergi Detayları</button>
+      `;
+      c.addEventListener('click', () => showDergiModal(i));
+      c.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') showDergiModal(i);
+      });
+      kartlar.appendChild(c);
     });
-  })();
+  }
+
+  function showDergiModal(idx) {
+    const dergi = dergiler[idx];
+    document.getElementById('dergi-modal-cover').src = dergi.cover;
+    document.getElementById('dergi-modal-cover').alt = dergi.title + ' kapağı';
+    document.getElementById('dergi-modal-title').textContent = dergi.title;
+    document.getElementById('dergi-modal-date').textContent = dergi.date;
+    // İçindekiler
+    const icUl = document.getElementById('dergi-modal-icerik');
+    icUl.innerHTML = '';
+    (dergi.icerik || []).forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      icUl.appendChild(li);
+    });
+    // PDF Oku linki
+    const okuBtn = document.getElementById('dergi-modal-link');
+    okuBtn.href = dergi.pdf;
+    okuBtn.target = '_blank';
+    okuBtn.rel = 'noopener';
+    // Modalı göster
+    const modalBg = document.getElementById('dergi-modal-bg');
+    modalBg.classList.add('show');
+    // ESC ile kapatmak için listener
+    function handleEscModal(e) {
+      if (e.key === 'Escape') closeDergiModal();
+    }
+    document.addEventListener('keydown', handleEscModal);
+    modalBg.onclick = function(e) {
+      if (e.target === modalBg) closeDergiModal();
+    };
+    document.getElementById('dergi-modal-close').onclick = closeDergiModal;
+    function closeDergiModal() {
+      modalBg.classList.remove('show');
+      document.removeEventListener('keydown', handleEscModal);
+      modalBg.onclick = null;
+      document.getElementById('dergi-modal-close').onclick = null;
+    }
+  }
+
+  // Dergi kartlarını başlat
+  document.addEventListener('DOMContentLoaded', renderDergiKartlari);
 </script>
+<script>
+// 2. Tekir Dergisi Sloganı ve kart ilk sayısı adını güncelle
+document.addEventListener('DOMContentLoaded', function() {
+  // Slogan ekle
+  const tekirBaslik = document.querySelector('#tekir-dergisi h2');
+  if (tekirBaslik) {
+    const slogan = document.createElement('span');
+    slogan.textContent = " – Edebiyatın ve kütüphaneciliğin pençesi";
+    slogan.className = "ml-2 text-base italic font-normal text-kent-navy/70";
+    tekirBaslik.appendChild(slogan);
+  }
+  // İlk sayı adını güncelle
+  const ilkKartBaslik = document.querySelectorAll('#tekir-dergisi .bg-kent-navy .text-kent-gold');
+  if (ilkKartBaslik && ilkKartBaslik[0]) {
+    ilkKartBaslik[0].textContent = 'Başlangıç: Sayı 1';
+  }
+});
+
+// 1. Hakkımızda metni güncelle
+document.addEventListener('DOMContentLoaded', function() {
+  const hakkimizdaP = document.querySelector('#hakkimizda p');
+  if (hakkimizdaP) {
+    hakkimizdaP.textContent =
+      "İstanbul Kent Üniversitesi Kütüphanecilik Kulübü, üniversitemizin kültür ve sanat damarını besleyen, kütüphane sevgisini ve okuma alışkanlığını yaymayı amaçlayan bir öğrenci topluluğudur. Farklı disiplinlerden öğrencileri bir araya getirir, birlikte düşünen, üreten ve paylaşan bir ortam oluşturur. Kulübümüz, bilgiye duyulan merakı, edebiyat sevgisini ve kültürel zenginliği kampüsümüzde aktarmak için düzenlenen etkinliklerle yaşam bulur.";
+  }
+});
+
+// 3. Etkinlikler: 3 örnek etkinlik kartı oluştur
+document.addEventListener('DOMContentLoaded', function() {
+  const etkinliklerSection = document.getElementById('etkinlikler');
+  if (etkinliklerSection) {
+    // Eski <ul> listesini kaldır
+    const eskiUl = etkinliklerSection.querySelector('ul');
+    if (eskiUl) eskiUl.remove();
+
+    // Kart gridini oluştur
+    const grid = document.createElement('div');
+    grid.className = "grid grid-cols-1 md:grid-cols-3 gap-6";
+
+    // Etkinlik kart detayları
+    const etkinlikler = [
+      {
+        title: "Yazarlar Odası",
+        emoji: "📝",
+        desc: "Alanında tanınmış yazarları ağırladığımız, edebiyatı ve yazma tutkusunu derinlemesine konuştuğumuz samimi söyleşi buluşmaları."
+      },
+      {
+        title: "Kitap Takas Günü",
+        emoji: "🔄",
+        desc: "Kulüp üyelerinin ve üniversite öğrencilerinin sevdikleri kitapları birbirleriyle değiştirdiği, yeni hikâyelerle tanışmaya önayak olan dopdolu bir gün."
+      },
+      {
+        title: "Kütüphane Gezileri",
+        emoji: "🏛️",
+        desc: "İstanbul’un seçkin ve tarihi kütüphanelerine yapılan keşif turlarıyla okuma kültürümüzü mekânlarda yaşatıyor ve ilham topluyoruz."
+      }
+    ];
+
+    etkinlikler.forEach(etkinlik => {
+      const card = document.createElement('div');
+      card.className = "bg-white border border-kent-navy/15 rounded-xl shadow-md p-6 flex flex-col items-start";
+      const baslik = document.createElement('div');
+      baslik.className = "flex items-center gap-2 mb-2 text-lg font-bold text-kent-navy";
+      baslik.innerHTML = `<span class="text-2xl">${etkinlik.emoji}</span> <span>${etkinlik.title}</span>`;
+      const desc = document.createElement('p');
+      desc.className = "text-kent-navy/80 text-base";
+      desc.textContent = etkinlik.desc;
+      card.appendChild(baslik);
+      card.appendChild(desc);
+      grid.appendChild(card);
+    });
+
+    etkinliklerSection.appendChild(grid);
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Tekir Dergisi kartındaki butonu bul
+  // 1. Dergi kartı için
+  const kartButon = document.querySelector(
+    '#tekir-dergisi .grid > div:first-child a'
+  );
+  if (kartButon) {
+    kartButon.setAttribute('href', '/dergi/sayi1.pdf');
+    kartButon.setAttribute('target', '_blank');
+    kartButon.setAttribute('rel', 'noopener');
+  }
+
+  // Modal içindeki 'Dergiyi Oku' (id="dergi-modal-link") butonu için örnek
+  const modalLink = document.getElementById('dergi-modal-link');
+  if (modalLink && modalLink.closest('#dergi-modal-bg')) {
+    modalLink.setAttribute('href', '/dergi/sayi1.pdf');
+    modalLink.setAttribute('target', '_blank');
+    modalLink.setAttribute('rel', 'noopener');
+  }
+});
+</script>
+<!-- Navbar'daki logo alanı için -->
+<!-- Aşağıdaki kodu, navbar'daki "BURAYA LOGO GELECEK" yazısı yerine koyabilirsiniz -->
+<img src="logo.png" alt="Kütüphanecilik Kulübü Logo" class="w-10 h-10 rounded-full object-contain bg-white shadow" />
+
